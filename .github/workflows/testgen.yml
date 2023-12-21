@@ -27,10 +27,7 @@ jobs:
 
       - name: Run script 100 times
         run: |
-          for i in {1..100}
-          do
-             python ./scraper/python.py
-          done
+          python ./scraper/python.py
 
       - name: Commit and push if it changed
         run: |
