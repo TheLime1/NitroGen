@@ -24,11 +24,19 @@ data = {
 
 response = requests.post(url, headers=headers, json=data)
 
-# Extract the token from the response
-token_start = response.text.find('"token":"') + len('"token":"')
-token_end = response.text.find('"}', token_start)
-token = response.text[token_start:token_end]
+# Check if the response starts with '<' (HTML response)
+if not response.text.startswith('<'):
+    # Extract the token from the response
+    token_start = response.text.find('"token":"') + len('"token":"')
+    token_end = response.text.find('"}', token_start)
+    token = response.text[token_start:token_end]
 
-# Print the URL and token
-url_with_token = f'https://discord.com/billing/partner-promotions/1180231712274387115/{token}'
-print(url_with_token)
+    # Print the URL and token
+    url_with_token = f'https://discord.com/billing/partner-promotions/1180231712274387115/{token}'
+    print(url_with_token)
+
+    # Export the result to "../codes.txt" in append mode
+    with open('../codes.txt', 'a') as file:
+        file.write(url_with_token + '\n')
+else:
+    print('Error: HTML response received. Not adding to the text file.')
