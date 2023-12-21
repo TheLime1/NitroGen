@@ -1,4 +1,5 @@
 import requests
+import pyshorteners
 
 url = 'https://api.discord.gx.games/v1/direct-fulfillment'
 
@@ -35,8 +36,21 @@ if not response.text.startswith('<'):
     url_with_token = f'https://discord.com/billing/partner-promotions/1180231712274387115/{token}'
     print(url_with_token)
 
-    # Export the result to "../codes.txt" in append mode
+    # Shorten the URL using TinyURL
+    s = pyshorteners.Shortener()
+    short_url = s.tinyurl.short(url_with_token)
+    print(f'Short URL: {short_url}')
+
+   # Export the result to "../codes.txt" in append mode
     with open('../codes.txt', 'a') as file:
-        file.write(url_with_token + '\n')
+        file.write(short_url + '\n')
+
+    # Remove empty lines
+    with open('../codes.txt', 'r') as file:
+        lines = file.readlines()
+    lines = [line for line in lines if line.strip()]  # Remove empty lines
+
+    with open('../codes.txt', 'w') as file:
+        file.writelines(lines)
 else:
     print('Error: HTML response received. Not adding to the text file.')
