@@ -27,7 +27,7 @@ jobs:
 
       - name: Run script 100 times
         run: |
-          python ./scraper/python.py
+          python python.py
 
       - name: Commit and push if it changed
         run: |
