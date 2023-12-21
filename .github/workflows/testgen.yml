@@ -1,4 +1,4 @@
-name: gen100
+name: test generation
 
 on:
   schedule:

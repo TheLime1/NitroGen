@@ -42,10 +42,10 @@ if not response.text.startswith('<'):
     print(f'Short URL: {short_url}')
 
    # Export the result to "../codes.txt" in append mode
-    with open('../codes.txt', 'a') as file:
+    with open('codes.txt', 'a') as file:
         file.write(short_url + '\n')
 
-    with open('../codes.txt', 'r') as file:
+    with open('codes.txt', 'r') as file:
         lines = file.readlines()
     # Remove empty line at the end of the file
     if lines and lines[-1].strip() == '':
