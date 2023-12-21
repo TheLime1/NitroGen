@@ -45,10 +45,11 @@ if not response.text.startswith('<'):
     with open('../codes.txt', 'a') as file:
         file.write(short_url + '\n')
 
-    # Remove empty lines
     with open('../codes.txt', 'r') as file:
         lines = file.readlines()
-    lines = [line for line in lines if line.strip()]  # Remove empty lines
+    # Remove empty line at the end of the file
+    if lines and lines[-1].strip() == '':
+        lines.pop()
 
     with open('../codes.txt', 'w') as file:
         file.writelines(lines)
