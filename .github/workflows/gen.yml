@@ -2,8 +2,6 @@ name: gen
 
 on:
   workflow_dispatch: # This allows the workflow to be run manually from the GitHub Actions UI
-  schedule:
-    - cron: "0 0 * * *" # Run every midnight
 
 jobs:
   run-script:
