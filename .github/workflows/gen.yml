@@ -1,9 +1,9 @@
-name: gen100
+name: gen
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # This will run the workflow every day at midnight
   workflow_dispatch: # This allows the workflow to be run manually from the GitHub Actions UI
+  schedule:
+    - cron: "0 0 * * *" # Run every midnight
 
 jobs:
   run-script:
@@ -27,19 +27,16 @@ jobs:
 
       - name: Run script 100 times
         run: |
-          for i in {1..100}
-          do
-             python python.py
+          for i in {1..100}; do
+              python python.py
           done
 
-      - name: Commit and push if it changed
+      - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update codes.txt from Python script"
-            git push
-          fi
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add codes.txt
+          git commit -m "Update code links"
+          git -c http.extraheader="AUTHORIZATION: basic ${{ secrets.GTOKEN }}" push
+        env:
+          GTOKEN: ${{ secrets.GTOKEN }}
