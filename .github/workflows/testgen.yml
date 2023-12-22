@@ -27,14 +27,12 @@ jobs:
         run: |
           python python.py
 
-      - name: Commit and push if it changed
+      - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          if git diff --staged --quiet; then
-              echo "No changes to commit"
-          else
-              git commit -m "Update codes.txt from Python script"
-              git push https://${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git
-          fi
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add proxy_list.txt
+          git commit -m "Update code links"
+          git -c http.extraheader="AUTHORIZATION: basic ${{ secrets.GIT_TOKEN }}" push
+        env:
+          GTOKEN: ${{ secrets.GIT_TOKEN }}
