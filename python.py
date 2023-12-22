@@ -1,5 +1,18 @@
 import requests
 import pyshorteners
+import random
+
+
+def generate_hex_string():
+
+    hex_digits = ["0", "1", "2", "3", "4", "5", "6",
+                  "7", "8", "9", "A", "B", "C", "D", "E", "F"]
+    hex_string = ""
+    for i in range(64):
+        hex_string += random.choice(hex_digits)
+
+    return hex_string
+
 
 url = 'https://api.discord.gx.games/v1/direct-fulfillment'
 
@@ -20,7 +33,7 @@ headers = {
 }
 
 data = {
-    'partnerUserId': '2d34db3885501fe20c4489171ade370fdeceeb52bf7ff474764762e0491b42aa'
+    'partnerUserId': generate_hex_string()
 }
 
 response = requests.post(url, headers=headers, json=data)
