@@ -23,12 +23,7 @@ data = {
     'partnerUserId': '2d34db3885501fe20c4489171ade370fdeceeb52bf7ff474764762e0491b42aa'
 }
 
-proxies = {
-    'http': 'http://103.153.64.196:3128',
-}
-
-response = requests.post(url, headers=headers, json=data, proxies=proxies)
-
+response = requests.post(url, headers=headers, json=data)
 
 # Check if the response starts with '<' (HTML response)
 if not response.text.startswith('<'):
